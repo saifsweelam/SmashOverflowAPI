@@ -4,8 +4,11 @@
   "description": "Q/A API that acts like StackOverflow",
   "main": "dist/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node dist/index.js",
+    "start:dev": "tsx watch src/index.ts",
+    "build": "tsc"
   },
+  "type": "module",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/saifsweelam/SmashOverflowAPI.git"
@@ -25,5 +28,18 @@
   "bugs": {
     "url": "https://github.com/saifsweelam/SmashOverflowAPI/issues"
   },
-  "homepage": "https://github.com/saifsweelam/SmashOverflowAPI#readme"
+  "homepage": "https://github.com/saifsweelam/SmashOverflowAPI#readme",
+  "devDependencies": {
+    "@types/express": "^5.0.0",
+    "@types/node": "^22.10.4",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.2"
+  },
+  "dependencies": {
+    "@scalar/express-api-reference": "^0.4.173",
+    "class-validator": "^0.14.1",
+    "express": "^4.21.2",
+    "tsoa": "^6.6.0",
+    "typeorm": "^0.3.20"
+  }
 }
