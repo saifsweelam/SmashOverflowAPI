@@ -1,0 +1,29 @@
+{
+  "name": "smashoverflow",
+  "version": "1.0.0",
+  "description": "Q/A API that acts like StackOverflow",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/saifsweelam/SmashOverflowAPI.git"
+  },
+  "keywords": [
+    "typescript",
+    "node.js",
+    "tsoa",
+    "typeorm",
+    "qa",
+    "api",
+    "rest",
+    "jwt"
+  ],
+  "author": "Seif El-Din Sweilam",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/saifsweelam/SmashOverflowAPI/issues"
+  },
+  "homepage": "https://github.com/saifsweelam/SmashOverflowAPI#readme"
+}
