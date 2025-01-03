@@ -1,5 +1,12 @@
-import app from "./app.js";
+import "reflect-metadata";
+import { AppDataSource, ColorLog } from "./lib";
+import { listen } from "./app";
 
-app.listen(3000, () => {
-    console.log('Server is running on port 3000');
-})
+async function main() {
+    await AppDataSource.initialize();
+    ColorLog("yellow", "italic", "Data Source Initialized");
+    await listen(3000);
+    ColorLog("green", "bold", "Server listening on port 3000");
+}
+
+main();

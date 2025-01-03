@@ -1,16 +1,18 @@
 {
-  "compilerOptions": {
-    "target": "ES2023",
-    "module": "Node16",
-    "rootDir": "./src",
-    // "declaration": true,
-    // "declarationMap": true,
-    "sourceMap": true,
-    "outDir": "./dist",
-    "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": true,
-    "strict": true,
-    "noUnusedLocals": true,
-    "skipLibCheck": true
-  }
+    "compilerOptions": {
+        "target": "ES2023",
+        "module": "CommonJS",
+        "rootDir": "./src",
+        // "declaration": true,
+        // "declarationMap": true,
+        "sourceMap": true,
+        "outDir": "./dist",
+        "esModuleInterop": true,
+        "forceConsistentCasingInFileNames": true,
+        "strict": true,
+        "noUnusedLocals": true,
+        "skipLibCheck": true,
+        "experimentalDecorators": true,
+        "emitDecoratorMetadata": true
+    }
 }
