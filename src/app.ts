@@ -1,5 +1,6 @@
 import express from 'express';
 import { RegisterRoutes } from './tsoa/routes';
+import { apiReference } from '@scalar/express-api-reference';
 
 const app = express();
 
@@ -10,6 +11,16 @@ app.get('/', (req, res) => {
 });
 
 RegisterRoutes(app);
+
+app.get('/docs/openapi.json', (req, res) => {
+    res.sendFile('src/tsoa/swagger.json', { root: '.' });
+})
+
+app.get('/docs', apiReference({
+    spec: {
+        url: '/docs/openapi.json'
+    },
+}));
 
 export const listen = (port: number) => {
     return new Promise<void>((resolve) => {
