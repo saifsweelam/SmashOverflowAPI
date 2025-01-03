@@ -1,10 +1,12 @@
 import { DataSource } from "typeorm";
-import { Photo } from "../entities/Photo";
+import { Question } from "../entities";
+
+const env = process.env.NODE_ENV || "development";
 
 const AppDataSource = new DataSource({
     type: "sqlite",
-    database: "./db/app.db",
-    entities: [Photo],
+    database: env === 'test' ? "./db/test.db" : "./db/app.db",
+    entities: [Question],
     synchronize: true,
     logging: false,
 });

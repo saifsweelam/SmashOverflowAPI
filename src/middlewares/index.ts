@@ -1,0 +1,1 @@
+export { default as validateMiddleware } from "./validate.middleware";
