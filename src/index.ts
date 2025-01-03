@@ -4,9 +4,9 @@ import { listen } from "./app";
 
 async function main() {
     await AppDataSource.initialize();
-    ColorLog("yellow", "italic", "Data Source Initialized");
+    ColorLog("Data Source Initialized", "yellow", "italic");
     await listen(3000);
-    ColorLog("green", "bold", "Server listening on port 3000");
+    ColorLog("Server listening on port 3000", "green", "bold");
 }
 
 main();

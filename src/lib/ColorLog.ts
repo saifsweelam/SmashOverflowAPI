@@ -32,6 +32,12 @@ const consoleStyles = {
 } as const;
 type ConsoleStyle = keyof typeof consoleStyles;
 
-export default function ColorLog(color: ConsoleColor = "white", style: ConsoleStyle = "reset", ...items: unknown[]) {
-    console.log(...items.map(item => consoleStyles[style](consoleColors[color](String(item)))));
+export default function ColorLog(...items: [...unknown[], ConsoleColor, ConsoleStyle]) {
+    const style = items.pop() as ConsoleStyle;
+    const color = items.pop() as ConsoleColor;
+    console.log(
+        ...items.map(item => consoleStyles[style](
+            consoleColors[color](String(item))
+        ))
+    );
 }
