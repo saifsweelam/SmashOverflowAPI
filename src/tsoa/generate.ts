@@ -10,7 +10,7 @@ export default async function generate() {
                 routesDir: "./src/tsoa",
             },
             spec: {
-                outputDirectory: "./src/tsoa",
+                outputDirectory: "./public/docs",
                 specVersion: 3,
             }
         }

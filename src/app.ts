@@ -13,7 +13,7 @@ app.get('/', (req, res) => {
 RegisterRoutes(app);
 
 app.get('/docs/openapi.json', (req, res) => {
-    res.sendFile('src/tsoa/swagger.json', { root: '.' });
+    res.sendFile('public/docs/swagger.json', { root: '.' });
 })
 
 app.get('/docs', apiReference({
