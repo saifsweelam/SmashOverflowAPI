@@ -12,23 +12,88 @@ import type { Request as ExRequest, Response as ExResponse, RequestHandler, Rout
 // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
 
 const models: TsoaRoute.Models = {
-    "Question": {
+    "Post": {
         "dataType": "refObject",
         "properties": {
             "id": {"dataType":"double","required":true},
+            "type": {"dataType":"union","subSchemas":[{"dataType":"enum","enums":["question"]},{"dataType":"enum","enums":["answer"]}],"required":true},
             "title": {"dataType":"string","required":true},
-            "body": {"dataType":"string","required":true},
-            "tags": {"dataType":"array","array":{"dataType":"string"},"required":true},
+            "voteCount": {"dataType":"double","required":true},
+            "accepted": {"dataType":"boolean"},
+            "status": {"dataType":"string","required":true},
+            "author": {"ref":"User","required":true},
+            "latestContent": {"ref":"Content","required":true},
+            "contentHistory": {"dataType":"array","array":{"dataType":"refObject","ref":"Content"},"required":true},
+            "question": {"ref":"Post"},
+            "answers": {"dataType":"array","array":{"dataType":"refObject","ref":"Post"},"required":true},
+            "tags": {"dataType":"array","array":{"dataType":"refObject","ref":"Tag"},"required":true},
+            "comments": {"dataType":"array","array":{"dataType":"refObject","ref":"Comment"},"required":true},
+            "votes": {"dataType":"array","array":{"dataType":"refObject","ref":"Vote"},"required":true},
+            "createdAt": {"dataType":"datetime","required":true},
+            "updatedAt": {"dataType":"datetime","required":true},
         },
         "additionalProperties": true,
     },
     // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-    "QuestionCreateBody": {
+    "User": {
         "dataType": "refObject",
         "properties": {
-            "title": {"dataType":"string","required":true},
-            "body": {"dataType":"string","required":true},
-            "tags": {"dataType":"array","array":{"dataType":"string"},"required":true},
+            "id": {"dataType":"double","required":true},
+            "username": {"dataType":"string","required":true},
+            "displayName": {"dataType":"string","required":true},
+            "email": {"dataType":"string","required":true},
+            "password": {"dataType":"string"},
+            "role": {"dataType":"union","subSchemas":[{"dataType":"enum","enums":["user"]},{"dataType":"enum","enums":["admin"]}],"required":true},
+            "score": {"dataType":"double","required":true},
+            "googleId": {"dataType":"string"},
+            "posts": {"dataType":"array","array":{"dataType":"refObject","ref":"Post"},"required":true},
+            "comments": {"dataType":"array","array":{"dataType":"refObject","ref":"Comment"},"required":true},
+            "votes": {"dataType":"array","array":{"dataType":"refObject","ref":"Vote"},"required":true},
+        },
+        "additionalProperties": true,
+    },
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+    "Comment": {
+        "dataType": "refObject",
+        "properties": {
+            "id": {"dataType":"double","required":true},
+            "text": {"dataType":"string","required":true},
+            "post": {"ref":"Post","required":true},
+            "author": {"ref":"User","required":true},
+        },
+        "additionalProperties": true,
+    },
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+    "Vote": {
+        "dataType": "refObject",
+        "properties": {
+            "id": {"dataType":"double","required":true},
+            "value": {"dataType":"union","subSchemas":[{"dataType":"enum","enums":["upVote"]},{"dataType":"enum","enums":["downVote"]}],"required":true},
+            "post": {"ref":"Post","required":true},
+            "author": {"ref":"Post","required":true},
+        },
+        "additionalProperties": true,
+    },
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+    "Content": {
+        "dataType": "refObject",
+        "properties": {
+            "id": {"dataType":"double","required":true},
+            "text": {"dataType":"string","required":true},
+            "post": {"ref":"Post","required":true},
+            "currentPost": {"ref":"Post"},
+        },
+        "additionalProperties": true,
+    },
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+    "Tag": {
+        "dataType": "refObject",
+        "properties": {
+            "id": {"dataType":"double","required":true},
+            "name": {"dataType":"string","required":true},
+            "description": {"dataType":"string","required":true},
+            "color": {"dataType":"string","required":true},
+            "posts": {"dataType":"array","array":{"dataType":"refObject","ref":"Post"},"required":true},
         },
         "additionalProperties": true,
     },
@@ -68,36 +133,6 @@ export function RegisterRoutes(app: Router) {
 
               await templateService.apiHandler({
                 methodName: 'getQuestions',
-                controller,
-                response,
-                next,
-                validatedArgs,
-                successStatus: undefined,
-              });
-            } catch (err) {
-                return next(err);
-            }
-        });
-        // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-        const argsQuestionsController_createQuestion: Record<string, TsoaRoute.ParameterSchema> = {
-                questionCreateBody: {"in":"body","name":"questionCreateBody","required":true,"ref":"QuestionCreateBody"},
-        };
-        app.post('/questions',
-            ...(fetchMiddlewares<RequestHandler>(QuestionsController)),
-            ...(fetchMiddlewares<RequestHandler>(QuestionsController.prototype.createQuestion)),
-
-            async function QuestionsController_createQuestion(request: ExRequest, response: ExResponse, next: any) {
-
-            // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-
-            let validatedArgs: any[] = [];
-            try {
-                validatedArgs = templateService.getValidatedArgs({ args: argsQuestionsController_createQuestion, request, response });
-
-                const controller = new QuestionsController();
-
-              await templateService.apiHandler({
-                methodName: 'createQuestion',
                 controller,
                 response,
                 next,

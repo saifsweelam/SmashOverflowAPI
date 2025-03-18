@@ -7,53 +7,270 @@
 		"requestBodies": {},
 		"responses": {},
 		"schemas": {
-			"Question": {
+			"Post": {
 				"properties": {
 					"id": {
 						"type": "number",
 						"format": "double"
 					},
+					"type": {
+						"type": "string",
+						"enum": [
+							"question",
+							"answer"
+						]
+					},
 					"title": {
 						"type": "string"
 					},
-					"body": {
+					"voteCount": {
+						"type": "number",
+						"format": "double"
+					},
+					"accepted": {
+						"type": "boolean"
+					},
+					"status": {
 						"type": "string"
+					},
+					"author": {
+						"$ref": "#/components/schemas/User"
+					},
+					"latestContent": {
+						"$ref": "#/components/schemas/Content"
+					},
+					"contentHistory": {
+						"items": {
+							"$ref": "#/components/schemas/Content"
+						},
+						"type": "array"
+					},
+					"question": {
+						"$ref": "#/components/schemas/Post"
+					},
+					"answers": {
+						"items": {
+							"$ref": "#/components/schemas/Post"
+						},
+						"type": "array"
 					},
 					"tags": {
 						"items": {
-							"type": "string"
+							"$ref": "#/components/schemas/Tag"
+						},
+						"type": "array"
+					},
+					"comments": {
+						"items": {
+							"$ref": "#/components/schemas/Comment"
+						},
+						"type": "array"
+					},
+					"votes": {
+						"items": {
+							"$ref": "#/components/schemas/Vote"
+						},
+						"type": "array"
+					},
+					"createdAt": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"updatedAt": {
+						"type": "string",
+						"format": "date-time"
+					}
+				},
+				"required": [
+					"id",
+					"type",
+					"title",
+					"voteCount",
+					"status",
+					"author",
+					"latestContent",
+					"contentHistory",
+					"answers",
+					"tags",
+					"comments",
+					"votes",
+					"createdAt",
+					"updatedAt"
+				],
+				"type": "object",
+				"additionalProperties": true
+			},
+			"User": {
+				"properties": {
+					"id": {
+						"type": "number",
+						"format": "double"
+					},
+					"username": {
+						"type": "string"
+					},
+					"displayName": {
+						"type": "string"
+					},
+					"email": {
+						"type": "string"
+					},
+					"password": {
+						"type": "string"
+					},
+					"role": {
+						"type": "string",
+						"enum": [
+							"user",
+							"admin"
+						]
+					},
+					"score": {
+						"type": "number",
+						"format": "double"
+					},
+					"googleId": {
+						"type": "string"
+					},
+					"posts": {
+						"items": {
+							"$ref": "#/components/schemas/Post"
+						},
+						"type": "array"
+					},
+					"comments": {
+						"items": {
+							"$ref": "#/components/schemas/Comment"
+						},
+						"type": "array"
+					},
+					"votes": {
+						"items": {
+							"$ref": "#/components/schemas/Vote"
 						},
 						"type": "array"
 					}
 				},
 				"required": [
 					"id",
-					"title",
-					"body",
-					"tags"
+					"username",
+					"displayName",
+					"email",
+					"role",
+					"score",
+					"posts",
+					"comments",
+					"votes"
 				],
 				"type": "object",
 				"additionalProperties": true
 			},
-			"QuestionCreateBody": {
+			"Comment": {
 				"properties": {
-					"title": {
+					"id": {
+						"type": "number",
+						"format": "double"
+					},
+					"text": {
 						"type": "string"
 					},
-					"body": {
+					"post": {
+						"$ref": "#/components/schemas/Post"
+					},
+					"author": {
+						"$ref": "#/components/schemas/User"
+					}
+				},
+				"required": [
+					"id",
+					"text",
+					"post",
+					"author"
+				],
+				"type": "object",
+				"additionalProperties": true
+			},
+			"Vote": {
+				"properties": {
+					"id": {
+						"type": "number",
+						"format": "double"
+					},
+					"value": {
+						"type": "string",
+						"enum": [
+							"upVote",
+							"downVote"
+						]
+					},
+					"post": {
+						"$ref": "#/components/schemas/Post"
+					},
+					"author": {
+						"$ref": "#/components/schemas/Post"
+					}
+				},
+				"required": [
+					"id",
+					"value",
+					"post",
+					"author"
+				],
+				"type": "object",
+				"additionalProperties": true
+			},
+			"Content": {
+				"properties": {
+					"id": {
+						"type": "number",
+						"format": "double"
+					},
+					"text": {
 						"type": "string"
 					},
-					"tags": {
+					"post": {
+						"$ref": "#/components/schemas/Post"
+					},
+					"currentPost": {
+						"$ref": "#/components/schemas/Post"
+					}
+				},
+				"required": [
+					"id",
+					"text",
+					"post"
+				],
+				"type": "object",
+				"additionalProperties": true
+			},
+			"Tag": {
+				"properties": {
+					"id": {
+						"type": "number",
+						"format": "double"
+					},
+					"name": {
+						"type": "string"
+					},
+					"description": {
+						"type": "string"
+					},
+					"color": {
+						"type": "string"
+					},
+					"posts": {
 						"items": {
-							"type": "string"
+							"$ref": "#/components/schemas/Post"
 						},
 						"type": "array"
 					}
 				},
 				"required": [
-					"title",
-					"body",
-					"tags"
+					"id",
+					"name",
+					"description",
+					"color",
+					"posts"
 				],
 				"type": "object",
 				"additionalProperties": true
@@ -83,7 +300,7 @@
 							"application/json": {
 								"schema": {
 									"items": {
-										"$ref": "#/components/schemas/Question"
+										"$ref": "#/components/schemas/Post"
 									},
 									"type": "array"
 								}
@@ -93,33 +310,6 @@
 				},
 				"security": [],
 				"parameters": []
-			},
-			"post": {
-				"operationId": "CreateQuestion",
-				"responses": {
-					"200": {
-						"description": "Ok",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/Question"
-								}
-							}
-						}
-					}
-				},
-				"security": [],
-				"parameters": [],
-				"requestBody": {
-					"required": true,
-					"content": {
-						"application/json": {
-							"schema": {
-								"$ref": "#/components/schemas/QuestionCreateBody"
-							}
-						}
-					}
-				}
 			}
 		}
 	},

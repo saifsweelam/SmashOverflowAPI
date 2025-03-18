@@ -1,5 +1,5 @@
-import { Body, Controller, Get, Middlewares, Post, Route } from "tsoa";
-import { Question } from "../entities";
+import { Body, Controller, Get, Middlewares, Post as PostMethod, Route } from "tsoa";
+import { Post } from "../entities";
 import QuestionsService from "../services/questions.service";
 import { QuestionCreateBody } from "../dto/question.dto";
 import { validateMiddleware } from "../middlewares";
@@ -9,16 +9,16 @@ export class QuestionsController extends Controller {
     private questionsService = new QuestionsService();
 
     @Get()
-    public async getQuestions(): Promise<Question[]> {
+    public async getQuestions(): Promise<Post[]> {
         return this.questionsService.getQuestions();
     }
 
-    @Post()
+    @PostMethod()
     @Middlewares([ validateMiddleware("body", QuestionCreateBody) ])
     public async createQuestion(
         @Body() questionCreateBody: QuestionCreateBody
-    ): Promise<Question> {
+    ): Promise<Post> {
         this.setStatus(201);
-        return this.questionsService.createQuestion(questionCreateBody);
+        return this.questionsService.createQuestion(questionCreateBody, 1);
     }
 }
